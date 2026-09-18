@@ -48,7 +48,11 @@ The system does not depend on any external API for its core functionality —
 the "AI Needs Assessment Assistant" is a local, rule-based analytics engine
 (see `app/Core/AiNeedsAssistant.php`) that only reports figures computed
 directly from your own database; it never calls out to a third-party service
-and never invents statistics.
+and never invents statistics. Bootstrap, Font Awesome, Chart.js, Leaflet and
+FullCalendar are vendored locally under `public/assets/vendor/` (not loaded
+from a CDN), so the UI works fully offline on a LAN with no internet access —
+only the optional OpenStreetMap tile layer on the Map page needs connectivity
+for base map imagery.
 
 ## Feature Overview
 

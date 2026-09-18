@@ -7,8 +7,8 @@
 
 <?php
 $extraScripts = '
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
-<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="' . asset('vendor/leaflet/leaflet.css') . '">
+<script src="' . asset('vendor/leaflet/leaflet.js') . '"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     var map = L.map("mapView").setView([2.0469, 45.3182], 12);

@@ -126,18 +126,35 @@ function format_datetime(?string $date): string
 
 function view(string $view, array $data = [], ?string $layout = 'layout/app'): void
 {
-    extract($data, EXTR_SKIP);
     $viewFile = base_path('app/Views/' . $view . '.php');
     if (!is_file($viewFile)) {
         throw new RuntimeException("View not found: {$view}");
     }
     if ($layout === null) {
+        extract($data, EXTR_SKIP);
         require $viewFile;
         return;
     }
-    $content = function () use ($viewFile, $data) {
+
+    // Render the child view first, in its own scope, capturing both its HTML
+    // output and any extra variables it defines (e.g. $extraScripts) so the
+    // layout below can see them too — a plain closure capture only exposes
+    // variables that existed *before* the view ran, not ones it creates.
+    $renderChild = static function () use ($viewFile, $data) {
         extract($data, EXTR_SKIP);
+        ob_start();
         require $viewFile;
+        $html = ob_get_clean();
+        $vars = get_defined_vars();
+        unset($vars['viewFile'], $vars['data'], $vars['html']);
+        return [$html, $vars];
+    };
+    [$contentHtml, $extraVars] = $renderChild();
+
+    $data = array_merge($data, $extraVars);
+    extract($data, EXTR_SKIP);
+    $content = static function () use ($contentHtml) {
+        echo $contentHtml;
     };
     require base_path('app/Views/' . $layout . '.php');
 }

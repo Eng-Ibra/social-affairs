@@ -85,7 +85,7 @@
 </div>
 
 <?php
-$extraScripts = '<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script><script>' . '
+$extraScripts = '<script src="' . asset('vendor/chartjs/chart.umd.min.js') . '"></script><script>' . '
 const isDark = document.documentElement.getAttribute("data-theme") === "dark";
 const gridColor = isDark ? "rgba(255,255,255,.08)" : "rgba(0,0,0,.06)";
 const textColor = isDark ? "#c9d3e6" : "#495166";

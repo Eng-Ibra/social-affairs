@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><?= isset($title) ? e($title) . ' — ' : '' ?><?= e(config('app.name')) ?></title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="<?= asset('vendor/bootstrap/css/bootstrap.min.css') ?>">
+<link rel="stylesheet" href="<?= asset('vendor/fontawesome/css/all.min.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
 </head>
 <body>
@@ -117,7 +117,7 @@
 </div>
 </div>
 <script>window.SAS_CSRF = "<?= csrf_token() ?>";</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="<?= asset('vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 <script src="<?= asset('js/app.js') ?>"></script>
 <?php if (!empty($extraScripts)) echo $extraScripts; ?>
 </body>

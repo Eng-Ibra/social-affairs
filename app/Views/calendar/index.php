@@ -37,8 +37,7 @@
 
 <?php
 $extraScripts = '
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css">
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+<script src="' . asset('vendor/fullcalendar/index.global.min.js') . '"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     var calendarEl = document.getElementById("calendar");

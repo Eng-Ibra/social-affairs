@@ -39,6 +39,13 @@ body {
     transition: background .2s ease, color .2s ease;
 }
 
+/* Bootstrap's own .text-muted/.text-secondary utilities are tuned for a
+   light background and stay too dark to read once [data-theme="dark"]
+   swaps the surface behind them — force them onto our theme-aware token. */
+.text-muted, .text-secondary {
+    color: var(--sas-text-muted) !important;
+}
+
 a { color: var(--sas-primary); }
 
 .card, .list-group-item, .modal-content, .dropdown-menu, .table {
