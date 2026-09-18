@@ -313,6 +313,55 @@ never the only line of defense.
 8. New sign-ups will arrive as `pending` exactly as they do locally — an
    Admin approves them from **Users** before they can log in.
 
+### Free live demo (Render + db4free) — quickest path to a public URL
+
+For a $0, no-credit-card demo deployment (not a substitute for the
+production guidance above), this repo includes a `Dockerfile` +
+`docker/apache-vhost.conf` so a container host can run it directly. Render's
+free web-service tier + db4free.net's free MySQL work well together:
+
+1. **Create the database** at [db4free.net](https://www.db4free.net) (free
+   sign-up, no card). Note the hostname it gives you (usually
+   `db4free.net`, port `3306`), your chosen database name, username and
+   password. Free tier limits (a few hundred MB, single database) are meant
+   for demos/testing, not production — see their site for current terms.
+2. Once the database is confirmed (check the confirmation email), open its
+   **phpMyAdmin** link from db4free.net and use *Import* to run
+   `database/schema.sql`, then `database/seed.sql` from this repo. This
+   avoids ever sharing the database password with anyone else.
+3. **Create a free Render.com account** (GitHub login is easiest) and
+   connect it to the `Eng-Ibra/social-affairs` repository.
+4. **New → Web Service**, select the
+   `claude/social-affairs-mgmt-system-tw7qoz` branch (or whichever branch
+   holds this code), environment **Docker** (Render auto-detects the
+   `Dockerfile`), free instance type.
+5. Add these **Environment Variables** in Render's dashboard (Render sets
+   `PORT` for you automatically — do not set it yourself):
+   ```
+   APP_ENV=production
+   APP_DEBUG=false
+   APP_URL=https://<your-render-service-name>.onrender.com
+   DB_HOST=db4free.net
+   DB_PORT=3306
+   DB_DATABASE=<your db4free database name>
+   DB_USERNAME=<your db4free username>
+   DB_PASSWORD=<your db4free password>
+   APP_KEY=<any random 32+ character string>
+   ```
+6. Click **Deploy**. Render builds the Docker image and gives you a public
+   `https://….onrender.com` URL once it's live — that's the real, shareable
+   link. Log in with the seeded Super Admin and change the password
+   immediately (see [Creating the First Super
+   Admin](#creating-the-first-super-admin)).
+
+Notes specific to this free path: Render's free tier spins the service down
+after periods of inactivity, so the first request after a while takes
+~30–60 seconds to wake back up; `cron/recalculate.php` won't run
+automatically unless you also add it as a Render **Cron Job** (also free)
+pointed at the same repo; and a free database like db4free is for
+demonstrating the system, not for real beneficiary data — use a real hosting
+provider and your own managed database for actual departmental use.
+
 ## Security Notes
 
 - Passwords are hashed with bcrypt (`password_hash`/`PASSWORD_BCRYPT`).
