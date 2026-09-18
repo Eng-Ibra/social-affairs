@@ -1,0 +1,9 @@
+{
+    "name": "local-gov/social-affairs-management-system",
+    "description": "Social Affairs Management System for a Local Government Social Affairs Department",
+    "type": "project",
+    "require": {
+        "php": ">=8.1",
+        "phpoffice/phpspreadsheet": "^2.0"
+    }
+}
